@@ -1,0 +1,41 @@
+/* -------------------------
+   Modern Minimal CSS Reset
+   Dark Theme Base
+   ------------------------- */
+
+:root {
+  --bg-dark: #111418;   /* soft dark, not pure black */
+  --fg-light: #e4e7eb;  /* gentle off-white text */
+  
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+/* Full viewport units here */
+html, body, #root {
+  height: 100dvh;
+  width: 100dvw;
+}
+
+#root {
+  display: flex;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+
+  background-color: var(--bg-dark);
+  color: var(--fg-light);
+}
