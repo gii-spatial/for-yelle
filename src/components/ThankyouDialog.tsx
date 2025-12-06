@@ -27,7 +27,7 @@ export default function ThankyouDialog({ open }: ThankyouDialogProps) {
       {/* Confetti GIF */}
       <Box
         component="img"
-        src="/src/assets/gif/confetti.gif"
+        src="/for-yelle/confetti.gif"
         alt="Confetti"
         sx={{
           position: "absolute",
@@ -46,7 +46,6 @@ export default function ThankyouDialog({ open }: ThankyouDialogProps) {
           zIndex: 1, // text is above the confetti
           color: "#000",
           fontSize: "1.2rem",
-          fontWeight: "bold",
         }}
         spacing={2}
       >
