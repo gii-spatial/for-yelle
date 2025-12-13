@@ -36,6 +36,6 @@ body {
   font-family: system-ui, sans-serif;
   text-rendering: optimizeLegibility;
 
-  background-color: var(--bg-dark);
+  background-color: var(--fg-light);
   color: var(--fg-light);
 }

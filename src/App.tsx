@@ -1,23 +1,29 @@
 import Stack from "@mui/material/Stack";
-import WelcomeMessage from "./components/WelcomeMessage";
-import { useState } from "react";
-import BaseCard from "./components/BaseCard";
+import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
 
 function App() {
-  const [openMsg, setOpenMsg] = useState<boolean>(false);
-
-  const handleOpenMsg = () => {
-    setOpenMsg(true);
-  };
-
   return (
     <Stack
       flex={1}
       alignItems="center"
       justifyContent="center"
-      sx={{ height: "100vh", bgcolor: "#121212" }}
+      gap={1.5}
+      sx={{ height: "100vh" }}
     >
-      {!openMsg ? <WelcomeMessage onRead={handleOpenMsg} /> : <BaseCard />}
+      <Box
+        component="img"
+        src="/for-yelle/send-hearts-1.gif"
+        alt="send-hearts-1"
+        sx={{
+          width: 430,
+          height: 430,
+          pointerEvents: "none",
+        }}
+      />
+      <Typography variant="h4" sx={{ color: "#111418" }}>
+        Ingat pauwi 🚌💖
+      </Typography>
     </Stack>
   );
 }
