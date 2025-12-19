@@ -1,30 +1,33 @@
+import { ThemeProvider } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
+import susTheme from "./themes/susTheme";
+import useDynamicViewPorts from "./hooks/useDynamicViewports";
+import CallingSanta from "./components/games/CallingSanta";
 
 function App() {
+  const { getDvHeight, getDvWidth } = useDynamicViewPorts();
+
+  const dynamicHeight = getDvHeight(100);
+  const dynamicWidth = getDvWidth(100);
   return (
-    <Stack
-      flex={1}
-      alignItems="center"
-      justifyContent="center"
-      gap={1.5}
-      sx={{ height: "100vh" }}
-    >
-      <Box
-        component="img"
-        src="/for-yelle/send-hearts-1.gif"
-        alt="send-hearts-1"
+    <ThemeProvider theme={susTheme("dark")}>
+      <CssBaseline />
+      <Stack
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
         sx={{
-          width: 430,
-          height: 430,
-          pointerEvents: "none",
+          minHeight: dynamicHeight,
+          height: dynamicHeight,
+          width: dynamicWidth,
+          overflowX: "hidden",
         }}
-      />
-      <Typography variant="h4" sx={{ color: "#111418" }}>
-        Ingat pauwi 🚌💖
-      </Typography>
-    </Stack>
+      >
+        {/* -- app components go here -- */}
+        <CallingSanta />
+      </Stack>
+    </ThemeProvider>
   );
 }
 

@@ -1,12 +1,9 @@
 /* -------------------------
    Modern Minimal CSS Reset
-   Dark Theme Base
+   Theme-agnostic
    ------------------------- */
 
 :root {
-  --bg-dark: #111418;   /* soft dark, not pure black */
-  --fg-light: #e4e7eb;  /* gentle off-white text */
-  
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -22,7 +19,6 @@ html {
   padding: 0;
 }
 
-/* Full viewport units here */
 html, body, #root {
   height: 100dvh;
   width: 100dvw;
@@ -35,7 +31,4 @@ html, body, #root {
 body {
   font-family: system-ui, sans-serif;
   text-rendering: optimizeLegibility;
-
-  background-color: var(--fg-light);
-  color: var(--fg-light);
 }
