@@ -14,34 +14,31 @@ export const DEF_NUMBERS = [
 export const PrizeMoney = [100, 200, 300, 400, 500] as const;
 
 export const RecordPrizeMoney: Record<number, number> = {
-  1: 100,
+  1: 50,
   2: 200,
-  3: 300,
-  4: 400,
-  5: 500,
+  3: 500,
+  4: 50,
+  5: 1000,
+  6: 100,
+  7: 500,
+  8: 1000,
+  9: 200,
+  0: 100,
 };
 
 /**
  * Prize resolver
  */
 const getPrize = (num: number): number => {
-  // Fixed prizes for 1–5
-  if (num >= 1 && num <= 5) {
-    return RecordPrizeMoney[num];
-  }
-
-  // Randomized prizes for 0, 6–9
-  if (num === 0 || (num >= 6 && num <= 9)) {
-    return PrizeMoney[Math.floor(Math.random() * PrizeMoney.length)];
-  }
-
-  throw new Error(`Invalid number: ${num}`);
+  if (num > 9) throw new Error(`Invalid number: ${num}`);
+  return RecordPrizeMoney[num];
 };
 
 /**
  * ---- Store ----
  */
 
+const userAtom = atom<string>("");
 const selectedNumberAtom = atom<number | null>(null);
 
 const selectedPriceAtom = atom<number | null>((get) => {
@@ -54,6 +51,7 @@ const selectedPriceAtom = atom<number | null>((get) => {
  * Exported store
  */
 const CSGameStore = {
+  user: userAtom,
   selectedNumber: selectedNumberAtom,
   selectedPrice: selectedPriceAtom,
 };
