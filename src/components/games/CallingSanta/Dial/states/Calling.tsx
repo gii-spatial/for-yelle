@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getDatabase, ref, set, push } from "firebase/database";
 import RenderGif from "../../RenderGif";
 import { useAtomValue } from "jotai";
 import CSGameStore from "../../_store";
+import app from "../../../../../_auth/firebase/gii-spatial-frb01.config";
 
 interface CallingProps {
   onFinish: () => void;
@@ -9,34 +11,41 @@ interface CallingProps {
 
 export default function Calling(props: CallingProps) {
   const selectedPrice = useAtomValue(CSGameStore.selectedPrice);
-  const user = useAtomValue(CSGameStore.user);
+  const player = useAtomValue(CSGameStore.player);
+  const sendTo = useAtomValue(CSGameStore.sendTo);
 
   const [requestDone, setRequestDone] = useState(false);
   const [animationEnded, setAnimationEnded] = useState(false);
 
-  const sendResult = async () => {
-    const payload = { user, pamasko: selectedPrice };
-    const url = "https://gh-gii-spatial-fastapi.vercel.app/send-result";
+  const hasSavedRef = useRef(false);
 
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+  const saveToFirebaseDB = () => {
+    const db = getDatabase(app);
+    const newDocRef = push(ref(db, "calling-santa-game-results"));
+
+    const payload = {
+      id: crypto.randomUUID(),
+      player: player,
+      ninang: sendTo,
+      prize: selectedPrice?.toString() || "0",
+    };
+
+    set(newDocRef, payload)
+      .then(() => {
+        console.log("Game result recorded!", payload);
+        setRequestDone(true);
+      })
+      .catch((error) => {
+        console.error(`error: ${error?.message}`);
       });
-
-      if (!res.ok) throw new Error("Request failed");
-      console.log("Sent!");
-    } catch (err) {
-      console.log("error", err);
-    } finally {
-      setRequestDone(true);
-    }
   };
 
-  // Run sendResult only once
+  // Run saveToFirebaseDB only once
   useEffect(() => {
-    sendResult();
+    if (hasSavedRef.current) return;
+
+    hasSavedRef.current = true;
+    saveToFirebaseDB();
   }, []);
 
   // Call onFinish only when both animation and request are done

@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import { DEF_NUMBERS } from "../../_store";
+import { DEF_NUMBERS } from "../../_constants";
 import BtnNumber from "./BtnNumber";
 
 interface NumberPickerProps {

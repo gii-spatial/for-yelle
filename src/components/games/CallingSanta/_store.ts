@@ -1,45 +1,20 @@
 import { atom } from "jotai";
-
-/**
- * Constants
- */
-
-export const DEF_NUMBERS = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-  [null, 0, null],
-];
-
-export const PrizeMoney = [100, 200, 300, 400, 500] as const;
-
-export const RecordPrizeMoney: Record<number, number> = {
-  1: 50,
-  2: 200,
-  3: 500,
-  4: 50,
-  5: 1000,
-  6: 100,
-  7: 500,
-  8: 1000,
-  9: 200,
-  0: 100,
-};
+import type { Ninang } from "./_interface";
+import { RecordPrizeMoney } from "./_constants";
 
 /**
  * Prize resolver
  */
 const getPrize = (num: number): number => {
-  if (num > 9) throw new Error(`Invalid number: ${num}`);
-  return RecordPrizeMoney[num];
+  return RecordPrizeMoney[num] || 0;
 };
 
 /**
  * ---- Store ----
  */
-
-const userAtom = atom<string>("");
+const playerAtom = atom<string>("");
 const selectedNumberAtom = atom<number | null>(null);
+const sendToAtom = atom<Ninang | null>(null);
 
 const selectedPriceAtom = atom<number | null>((get) => {
   const num = get(selectedNumberAtom);
@@ -51,7 +26,8 @@ const selectedPriceAtom = atom<number | null>((get) => {
  * Exported store
  */
 const CSGameStore = {
-  user: userAtom,
+  player: playerAtom,
+  sendTo: sendToAtom,
   selectedNumber: selectedNumberAtom,
   selectedPrice: selectedPriceAtom,
 };

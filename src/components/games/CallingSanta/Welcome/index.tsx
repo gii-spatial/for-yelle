@@ -1,17 +1,26 @@
+import { useAtom, useAtomValue } from "jotai";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import RenderGif from "./RenderGif";
-import { useAtom } from "jotai";
-import CSGameStore from "./_store";
+import RenderGif from "../RenderGif";
+import CSGameStore from "../_store";
+import ChooseNinang from "./ChooseNinang";
 
 interface WelcomeProps {
   readonly onBegin: () => void;
 }
+
 export default function Welcome(props: WelcomeProps) {
   const { onBegin } = props;
-  const [user, setUser] = useAtom(CSGameStore.user);
+  const [player, setPlayer] = useAtom(CSGameStore.player);
+  const sendTo = useAtomValue(CSGameStore.sendTo);
+
+  const handleOnChangePlayer = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPlayer(event.target.value);
+  };
+
+  const canBeginGame = player.trim().length > 0 && sendTo !== null;
   return (
     <Stack gap={1}>
       {/* GIF Placement */}
@@ -42,11 +51,12 @@ export default function Welcome(props: WelcomeProps) {
           </Typography>
         </Stack>
 
+        {/* Basic info */}
         <Stack gap={1} alignItems={"center"}>
-          <Typography>Your name:</Typography>
           <TextField
-            value={user}
-            onChange={(e) => setUser(e.target.value!)}
+            placeholder="Enter your name"
+            value={player}
+            onChange={handleOnChangePlayer}
             variant="filled"
             slotProps={{
               htmlInput: {
@@ -56,11 +66,12 @@ export default function Welcome(props: WelcomeProps) {
               },
             }}
           />
+          <ChooseNinang />
         </Stack>
 
         {/* Acceptance */}
         <Button
-          disabled={user.trim().length === 0}
+          disabled={!canBeginGame}
           variant="contained"
           sx={{ fontSize: 16, px: 3.25, py: 1.25, width: "fit-content" }}
           onClick={onBegin}

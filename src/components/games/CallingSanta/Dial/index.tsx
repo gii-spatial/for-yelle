@@ -22,9 +22,7 @@ export default function Dial() {
 
   const handleOnCall = () => {
     setDialState(DialEnum.calling);
-    setTimeout(() => {
-      setSelectedNumber(_selectedNumber);
-    }, 4000);
+    setSelectedNumber(_selectedNumber);
   };
 
   const handleOnFinish = () => {
