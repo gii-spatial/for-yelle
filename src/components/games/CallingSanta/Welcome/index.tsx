@@ -47,7 +47,7 @@ export default function Welcome(props: WelcomeProps) {
         <Stack gap={1} alignItems={"center"} textAlign={"center"}>
           <Typography variant="font22Normal">Merry christmas</Typography>
           <Typography whiteSpace={"pre-line"}>
-            {`Choose your pamasko wisely. \nGoodluck!`}
+            {`Choose your pamasko wisely. \nGoodluck🎄!`}
           </Typography>
         </Stack>
 

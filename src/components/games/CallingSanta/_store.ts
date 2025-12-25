@@ -1,13 +1,14 @@
 import { atom } from "jotai";
 import type { Ninang } from "./_interface";
-import { RecordPrizeMoney } from "./_constants";
+import { PrizePool } from "./_constants";
 
 /**
  * Prize resolver
+ * @deprecated
  */
-const getPrize = (num: number): number => {
-  return RecordPrizeMoney[num] || 0;
-};
+// const getPrize = (num: number): number => {
+//   return RecordPrizeMoney[num] || 0;
+// };
 
 /**
  * ---- Store ----
@@ -19,7 +20,10 @@ const sendToAtom = atom<Ninang | null>(null);
 const selectedPriceAtom = atom<number | null>((get) => {
   const num = get(selectedNumberAtom);
   if (num === null) return null;
-  return getPrize(num);
+
+  // Randomly select a prize from the prize pool
+  const randomPrize = PrizePool[Math.floor(Math.random() * PrizePool.length)];
+  return randomPrize;
 });
 
 /**

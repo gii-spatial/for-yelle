@@ -5,6 +5,14 @@ export const DEF_NUMBERS = [
   [null, 0, null],
 ];
 
+/**
+ * Prize pool for random selection
+ */
+export const PrizePool = [
+  50, 50, 50, 100, 100, 100, 100, 200, 200, 200, 200, 300, 300, 300, 400, 500,
+  600, 700, 800, 900, 1000,
+];
+
 export const RecordPrizeMoney: Record<number, number> = {
   1: 50,
   2: 200,
